@@ -35,16 +35,33 @@ class UserInterface:
         self.create_main_container()
 
     def create_toolbar(self):
-        """Создаёт верхнюю панель с разделами"""
         self.toolbar = ctk.CTkFrame(
             self.root,
             fg_color="#2c2c2c",
+            corner_radius=0,
             height=50
         )
         self.toolbar.pack(fill="x")
         self.toolbar.pack_propagate(False)
 
-        # Кнопка настроек
+        # Настраиваем сетку: 3 колонки
+        # 0 - левая (логотип)
+        # 1 - центр (кнопки)
+        # 2 - правая (настройки)
+        self.toolbar.grid_columnconfigure(0, weight=1)  # левая растёт
+        self.toolbar.grid_columnconfigure(1, weight=0)  # центр фиксирован
+        self.toolbar.grid_columnconfigure(2, weight=1)  # правая растёт
+
+        # Логотип (колонка 0)
+        logo_label = ctk.CTkLabel(
+            self.toolbar,
+            text=" PHYSX",
+            font=("Arial", 14, "bold"),
+            text_color="white"
+        )
+        logo_label.grid(row=0, column=0, sticky="w", padx=15)
+
+        # Кнопка настроек (колонка 2)
         btn_settings = ctk.CTkButton(
             self.toolbar,
             text="⚙️",
@@ -53,41 +70,38 @@ class UserInterface:
             width=40,
             command=self.open_settings
         )
-        btn_settings.pack(side="right", padx=5, pady=8)
+        btn_settings.grid(row=0, column=2, sticky="e", padx=15)
 
-        # Кнопки разделов
+        # Центральные кнопки (колонка 1)
+        center_frame = ctk.CTkFrame(self.toolbar, fg_color="transparent")
+        center_frame.grid(row=0, column=1)
+
         btn_mechanics = ctk.CTkButton(
-            self.toolbar,
+            center_frame,
             text="⚙️ МЕХАНИКА",
             fg_color="#3c3c3c",
             text_color="white",
             command=self.select_mechanics
         )
-        btn_mechanics.pack(side="left", padx=5, pady=8)
+        btn_mechanics.pack(side="left", padx=10)
 
         btn_molecular = ctk.CTkButton(
-            self.toolbar,
+            center_frame,
             text="🔬 МОЛЕКУЛЯРКА",
             fg_color="#3c3c3c",
             text_color="white",
             command=self.select_molecular
         )
-        btn_molecular.pack(side="left", padx=5, pady=8)
+        btn_molecular.pack(side="left", padx=10)
 
         btn_electronics = ctk.CTkButton(
-            self.toolbar,
+            center_frame,
             text="⚡ ЭЛЕКТРОНИКА",
             fg_color="#3c3c3c",
             text_color="white",
             command=self.select_electronics
         )
-        btn_electronics.pack(side="left", padx=5, pady=8)
-
-        self.section_buttons = {
-            "mechanics": btn_mechanics,
-            "molecular": btn_molecular,
-            "electronics": btn_electronics
-        }
+        btn_electronics.pack(side="left", padx=10)
 
     def create_objects_toolbar(self):
         """Создаёт панель с кнопками объектов"""
