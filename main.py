@@ -1,11 +1,10 @@
 # main.py
-import customtkinter as ctk
 import tkinter as tk
 import pymunk
 
-from objects import create_object, PhysicsObject
-from physics_engine import PhysicsEngine
-from ui import UserInterface
+from Phisics.objects import create_object
+from Phisics.physics_engine import PhysicsEngine
+from Ui.ui import UserInterface
 from menu import ContextMenu
 
 
@@ -288,17 +287,17 @@ class PhysicsSandbox:
 
             # Создаём новый объект того же типа
             if obj.obj_type == "circle":
-                from objects import Ball
+                from Phisics.objects import Ball
                 new_obj = Ball.__new__(Ball)  # Создаём без вызова __init__
                 new_obj.body = pymunk.Body(obj.body.mass, obj.body.moment)
                 new_obj.shape = pymunk.Circle(new_obj.body, obj.size)
             elif obj.obj_type == "square":
-                from objects import Box
+                from Phisics.objects import Box
                 new_obj = Box.__new__(Box)
                 new_obj.body = pymunk.Body(obj.body.mass, obj.body.moment)
                 new_obj.shape = pymunk.Poly.create_box(new_obj.body, (obj.size, obj.size))
             elif obj.obj_type == "triangle":
-                from objects import Triangle
+                from Phisics.objects import Triangle
                 new_obj = Triangle.__new__(Triangle)
                 new_obj.body = pymunk.Body(obj.body.mass, obj.body.moment)
                 points = [(0, -obj.size), (-obj.size, obj.size), (obj.size, obj.size)]

@@ -1,6 +1,5 @@
 import customtkinter as ctk
-from tkinter import ttk, colorchooser, scrolledtext
-from theme import theme
+from tkinter import colorchooser, scrolledtext
 import tkinter as tk
 
 class UserInterface:
@@ -614,7 +613,7 @@ class UserInterface:
         if hasattr(self, '_canvas_bg_color'):
             theme_data['canvas_bg'] = self._canvas_bg_color
 
-        with open('theme.json', 'w', encoding='utf-8') as f:
+        with open('../theme.json', 'w', encoding='utf-8') as f:
             json.dump(theme_data, f, indent=2)
 
         print(" Тема сохранена в theme.json")
