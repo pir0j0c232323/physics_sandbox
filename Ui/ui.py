@@ -3,11 +3,10 @@ import customtkinter as ctk
 from tkinter import colorchooser, scrolledtext
 import tkinter as tk
 from Ui.top_bar import TopBar
-from Ui.tool_panel import ToolPanel
 from Ui.panels.left_panel import LeftPanel
 from Ui.panels.right_panel import RightPanel
 from Ui.panels.canvas_view import CanvasView
-
+from Ui.tool_panel import ToolPanel
 
 class UserInterface:
     def __init__(self, root):
@@ -90,7 +89,7 @@ class UserInterface:
             self.on_gravity_callback(gx, gy)
 
     def _on_pause(self):
-        pass
+        self.paused.set(self.right_panel.paused.get())
 
     def _do_clear(self):
         if self.on_clear_callback:
@@ -122,6 +121,7 @@ class UserInterface:
         self.right_panel.update_stats(created, visible)
 
     def toggle_pause(self):
+        self.paused.set(not self.paused.get())
         self.right_panel._toggle_pause()
 
     def open_settings(self):
